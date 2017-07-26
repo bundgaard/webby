@@ -15,7 +15,7 @@ import java.net.ServerSocket
 @RunWith(VertxUnitRunner::class)
 class WebTest {
     // Make a random port available to start my verticle with, and also make the port variable available in the unit test
-    val port : Int by lazy {
+    val port: Int by lazy {
         val serverSocket = ServerSocket(0)
         val n = serverSocket.localPort
         serverSocket.close()
@@ -33,9 +33,8 @@ class WebTest {
     }
 
     @Test fun testGetHome(ctx: TestContext) {
-        val async : Async = ctx.async()
-        vertx.createHttpClient().getNow(port, "localhost", "/") {
-            resp ->
+        val async: Async = ctx.async()
+        vertx.createHttpClient().getNow(port, "localhost", "/") { resp ->
             ctx.assertEquals(resp.statusCode(), 200, "GET / should be 200")
             async.complete()
         }
